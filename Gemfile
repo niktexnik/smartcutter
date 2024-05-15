@@ -13,11 +13,17 @@ gem 'dry-validation'
 # Models
 gem 'annotate'
 
+# Notifications
+gem 'fcm'
+
+# Scheduler
+gem 'whenever', require: false
+
+# Background Jobs
+gem 'sidekiq'
+
 # Serialization
 gem 'active_model_serializers'
-
-# Admin resources
-gem 'activeadmin', github: 'activeadmin/activeadmin'
 gem 'acts_as_list'
 gem 'devise'
 
