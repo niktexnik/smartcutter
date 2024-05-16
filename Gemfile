@@ -31,6 +31,10 @@ gem 'devise'
 gem 'carrierwave'
 gem 'mini_magick'
 
+# docs
+gem 'rswag'
+gem 'rswag-api'
+gem 'rswag-ui'
 group :development, :test do
   gem 'debug', platforms: %i[mri mswin mswin64 mingw x64_mingw]
   # Testing
@@ -39,6 +43,7 @@ group :development, :test do
   gem 'database_cleaner', github: 'DatabaseCleaner/database_cleaner'
   gem 'factory_bot_rails', require: false
   gem 'faker', github: 'stympy/faker'
+  gem 'rswag-specs'
   gem 'simplecov', require: false
   gem 'webmock'
 end
