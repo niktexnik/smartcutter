@@ -6,7 +6,7 @@
 #  image      :string
 #  name       :string
 #  position   :string
-#  type       :integer
+#  type       :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  company_id :bigint           not null
@@ -30,4 +30,6 @@ class Asset < ApplicationRecord
   belongs_to :product
   belongs_to :entity
   belongs_to :company
+
+  validates :type, inclusion: { in: AVALIABLE_TYPES }
 end

@@ -22,8 +22,10 @@
 #
 class Entity < ApplicationRecord
   belongs_to :mediaset
-  validates :position, uniqueness: { scope: :mediaset_id }
+  has_many :photos
   has_one :original_photo, class_name: '::OriginalPhoto'
   has_one :processed_photo, class_name: '::ProcessedPhoto'
   has_one :manual_processed_photo, class_name: '::ManualProcessedPhoto'
+
+  validates :position, uniqueness: { scope: :mediaset_id }
 end

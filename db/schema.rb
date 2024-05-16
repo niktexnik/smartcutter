@@ -16,7 +16,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_15_105145) do
 
   create_table "assets", force: :cascade do |t|
     t.string "name"
-    t.integer "type"
+    t.string "type"
     t.string "image"
     t.string "position"
     t.bigint "product_id", null: false
@@ -120,9 +120,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_15_105145) do
   create_table "sessions", force: :cascade do |t|
     t.string "ip"
     t.string "access_token"
-    t.datetime "token_expire_at"
+    t.datetime "access_token_expires_at"
     t.string "refresh_token"
-    t.datetime "refresh_token_expire_at"
+    t.datetime "refresh_token_expires_at"
     t.bigint "device_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

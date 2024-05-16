@@ -25,4 +25,7 @@
 #
 class Company < ApplicationRecord
   belongs_to :user
+  has_many :products
+  has_many :assets
+  has_many :mediasets
 end
