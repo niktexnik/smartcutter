@@ -20,5 +20,10 @@
 #  fk_rails_...  (device_id => devices.id)
 #
 class SmsConfirmation < ApplicationRecord
+  MAX_SMS_ATTEMPS = 3
+  MAX_SMS_SENDS = 3
+  SMS_DELAY = 2.minutes
+  SMS_LIFETIME = 5
+  STATES = ConstantsDictionary.new(%i[new sms_sent confirmed])
   belongs_to :device
 end

@@ -1,3 +1,25 @@
+# == Schema Information
+#
+# Table name: sessions
+#
+#  id                       :bigint           not null, primary key
+#  access_token             :string
+#  access_token_expires_at  :datetime
+#  ip                       :string
+#  refresh_token            :string
+#  refresh_token_expires_at :datetime
+#  created_at               :datetime         not null
+#  updated_at               :datetime         not null
+#  device_id                :bigint           not null
+#
+# Indexes
+#
+#  index_sessions_on_device_id  (device_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (device_id => devices.id)
+#
 FactoryBot.define do
   factory :session do
     access_token { SecureRandom.urlsafe_base64(256, false) }
