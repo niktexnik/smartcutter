@@ -19,7 +19,13 @@
 #
 #  fk_rails_...  (entity_id => entities.id)
 #
-class Photo < ApplicationRecord
-  mount_uploader :photo
-  belongs_to :entity
+FactoryBot.define do
+  factory :original_photo do
+    photo do
+      Rack::Test::UploadedFile.new(Rails.root.join('spec', 'support', 'car.jpg'), 'image/jpeg')
+    end
+    file_size { Faker::Number.between(from: 100, to: 1000) }
+    height { Faker::Number.between(from: 100, to: 1000) }
+    width { Faker::Number.between(from: 100, to: 1000) }
+  end
 end

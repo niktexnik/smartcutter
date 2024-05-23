@@ -22,5 +22,42 @@ FactoryBot.define do
     surname { Faker::Name.last_name }
     phone { Faker::PhoneNumber.phone_number }
     agreement { true }
+    count_of_failure_sms_confirmation { 0 }
+
+    trait :with_device do
+      after(:create) do |user|
+        create(:device, :with_session, user:)
+      end
+    end
+
+    trait :with_company do
+      after(:create) do |user|
+        create(:company, user:)
+      end
+    end
+
+    trait :with_product do
+      after(:create) do |user|
+        create(:product, user:)
+      end
+    end
+
+    trait :product_with_mediaset do
+      after(:create) do |user|
+        create(:product, :with_mediaset, user:)
+      end
+    end
+
+    trait :product_with_assets do
+      after(:create) do |user|
+        create(:product, :with_all_assets, user:)
+      end
+    end
+
+    trait :with_patterns do
+      after(:create) do |user|
+        create(:product, :with_patterns, user:)
+      end
+    end
   end
 end

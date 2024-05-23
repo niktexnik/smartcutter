@@ -24,8 +24,21 @@ FactoryBot.define do
   factory :entity do
     name { Faker::Lorem.word }
     position { Faker::Number.unique.between(from: 1, to: 100) }
-    ready { [true, false].sample }
-    state { Faker::Lorem.word }
-    mediaset
+    ready { false }
+    state { :empty }
+
+    trait :with_original_photo do
+      after(:create) do |entity|
+        create(:original_photo, entity:)
+      end
+      state { :full }
+    end
+
+    trait :with_processed_photo do
+      after(:create) do |entity|
+        create(:processed_photo, entity:)
+      end
+      state { :full }
+    end
   end
 end

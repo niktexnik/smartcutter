@@ -41,7 +41,7 @@ group :development, :test do
   gem 'rspec-rails'
 
   gem 'database_cleaner', github: 'DatabaseCleaner/database_cleaner'
-  gem 'factory_bot_rails', require: false
+  gem 'factory_bot_rails'
   gem 'faker', github: 'stympy/faker'
   gem 'rswag-specs'
   gem 'simplecov', require: false

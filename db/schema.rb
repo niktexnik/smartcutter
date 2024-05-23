@@ -10,22 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_15_105145) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_17_125744) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "assets", force: :cascade do |t|
     t.string "name"
-    t.string "type"
+    t.string "asset_type"
     t.string "image"
     t.string "position"
     t.bigint "product_id", null: false
-    t.bigint "entity_id", null: false
-    t.bigint "company_id", null: false
+    t.bigint "company_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["company_id"], name: "index_assets_on_company_id"
-    t.index ["entity_id"], name: "index_assets_on_entity_id"
     t.index ["product_id"], name: "index_assets_on_product_id"
   end
 
@@ -71,7 +69,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_15_105145) do
 
   create_table "mediasets", force: :cascade do |t|
     t.string "name"
-    t.string "type"
     t.string "state"
     t.boolean "ready", default: false
     t.bigint "product_id", null: false
@@ -82,20 +79,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_15_105145) do
 
   create_table "patterns", force: :cascade do |t|
     t.string "name"
-    t.string "type"
     t.string "image"
     t.integer "road_height"
     t.bigint "product_id", null: false
-    t.bigint "entity_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["entity_id"], name: "index_patterns_on_entity_id"
     t.index ["product_id"], name: "index_patterns_on_product_id"
   end
 
   create_table "photos", force: :cascade do |t|
     t.bigint "entity_id", null: false
-    t.bigint "mediaset_id", null: false
     t.string "photo"
     t.integer "width"
     t.integer "height"
@@ -103,18 +96,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_15_105145) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["entity_id"], name: "index_photos_on_entity_id"
-    t.index ["mediaset_id"], name: "index_photos_on_mediaset_id"
   end
 
   create_table "products", force: :cascade do |t|
     t.string "name"
     t.boolean "enabled", default: true
-    t.integer "product_setting_id"
-    t.integer "pattern_id"
-    t.bigint "company_id", null: false
+    t.bigint "company_id"
+    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["company_id"], name: "index_products_on_company_id"
+    t.index ["user_id"], name: "index_products_on_user_id"
   end
 
   create_table "sessions", force: :cascade do |t|
@@ -140,6 +132,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_15_105145) do
     t.index ["device_id"], name: "index_sms_confirmations_on_device_id"
   end
 
+  create_table "sms_requests", force: :cascade do |t|
+    t.string "phone"
+    t.string "state"
+    t.inet "ip"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.string "surname"
@@ -154,17 +154,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_15_105145) do
   end
 
   add_foreign_key "assets", "companies"
-  add_foreign_key "assets", "entities"
   add_foreign_key "assets", "products"
   add_foreign_key "companies", "users"
   add_foreign_key "devices", "users"
   add_foreign_key "entities", "mediasets"
   add_foreign_key "mediasets", "products"
-  add_foreign_key "patterns", "entities"
   add_foreign_key "patterns", "products"
   add_foreign_key "photos", "entities"
-  add_foreign_key "photos", "mediasets"
   add_foreign_key "products", "companies"
+  add_foreign_key "products", "users"
   add_foreign_key "sessions", "devices"
   add_foreign_key "sms_confirmations", "devices"
 end

@@ -6,7 +6,6 @@
 #  name       :string
 #  ready      :boolean          default(FALSE)
 #  state      :string
-#  type       :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  product_id :bigint           not null
@@ -21,7 +20,6 @@
 #
 class Mediaset < ApplicationRecord
   belongs_to :product
-  belongs_to :user
   belongs_to :company, optional: true
   has_many :entities
 end

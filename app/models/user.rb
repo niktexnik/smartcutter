@@ -19,10 +19,11 @@ class User < ApplicationRecord
   has_many :devices, inverse_of: :user, dependent: :nullify
   has_many :sessions, through: :devices
   has_one :company
-
+  # has_many :products, through: :company, source: :product_id
+  # has_many :mediasets, through: :products, source: :mediaset_id
   before_save :downcase_email
 
-  validates :phone, :count_of_failure_sms_confirmations, presence: true
+  validates :phone, :count_of_failure_sms_confirmation, presence: true
   validates :email, format: { with: VALID_EMAIL_REGEX }, allow_nil: true, allow_blank: true
 
   def downcase_email
