@@ -1,0 +1,119 @@
+en:
+  dry_validation:
+    or: "or"
+
+    errors:
+      unique_field?: "уже занято"
+
+      unique_user_field?: "занято другим пользователем"
+
+      record_exists?: "not found"
+
+      unexpected_key: "invalid parameter"
+
+      in_range?: "size must be within from %{min} to %{max} symbols"
+
+      array?: "must be an array"
+
+      empty?: "must be empty"
+
+      excludes?: "must not include %{value}"
+
+      excluded_from?:
+        arg:
+          default: "must not be one of: %{list}"
+          range: "must not be one of: %{list_left} - %{list_right}"
+
+      exclusion?: "must not be one of: %{list}"
+
+      eql?: "must be equal to %{left}"
+
+      not_eql?: "must not be equal to %{left}"
+
+      filled?: "required field"
+
+      format?: "is in invalid format"
+
+      number?: "must be a number"
+
+      odd?: "must be odd"
+
+      even?: "must be even"
+
+      gt?: "must be greater than %{num}"
+
+      gteq?: "must be greater than or equal to %{num}"
+
+      hash?: "must be a hash"
+
+      included_in?:
+        arg:
+          default: "must be one of: %{list}"
+          range: "must be one of: %{list_left} - %{list_right}"
+
+      inclusion?: "must be one of: %{list}"
+
+      includes?: "must include %{value}"
+
+      bool?: "must be boolean"
+
+      true?: "must be true"
+
+      false?: "must be false"
+
+      int?: "must be a number"
+
+      float?: "must be a number"
+
+      decimal?: "must be a number"
+
+      date?: "must be a date"
+
+      date_time?: "must be a date time"
+
+      time?: "must be a time"
+
+      key?: "required field"
+
+      attr?: "required field"
+
+      lt?: "must be less than %{num}"
+
+      lteq?: "must be less than or equal to %{num}"
+
+      max_size?: "size cannot be greater than %{num}"
+
+      max_bytesize?: "bytesize cannot be greater than %{num}"
+
+      min_size?: "use min from %{num} symbols"
+
+      min_bytesize?: "bytesize cannot be less than %{num}"
+
+      nil?: "cannot be defined"
+
+      str?: "must be a string"
+
+      type?: "must be %{type}"
+
+      size?:
+        arg:
+          default: "size must be %{size}"
+          range: "size must be within %{size_left} - %{size_right}"
+
+        value:
+          string:
+            arg:
+              default: "length must be %{size}"
+              range: "size must be within %{size_left} - %{size_right} symbols"
+
+      bytesize?:
+        arg:
+          default: "must be %{size} bytes long"
+          range: "must be within %{size_left} - %{size_right} bytes long"
+
+      uuid_v4?: "is not a valid UUID"
+
+      not:
+        empty?: "cannot be empty"
+      wrong_lat: 'Latitude must be greater than -90 and less than 90'
+      wrong_lon: 'Longitude must be greater than -180 and less than 180'

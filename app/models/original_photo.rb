@@ -20,4 +20,5 @@
 #  fk_rails_...  (entity_id => entities.id)
 #
 class OriginalPhoto < Photo
+  belongs_to :entity
 end
