@@ -18,9 +18,9 @@ class User < ApplicationRecord
   VALID_EMAIL_REGEX = /\A([\w+-].?)+@[a-z\d-]+(\.[a-z]+)*\.[a-z]+\z/i
   has_many :devices, inverse_of: :user, dependent: :nullify
   has_many :sessions, through: :devices
+  has_many :products
+  has_many :mediasets, through: :products
   has_one :company
-  # has_many :products, through: :company, source: :product_id
-  # has_many :mediasets, through: :products, source: :mediaset_id
   before_save :downcase_email
 
   validates :phone, :count_of_failure_sms_confirmation, presence: true

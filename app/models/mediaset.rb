@@ -22,4 +22,6 @@ class Mediaset < ApplicationRecord
   belongs_to :product
   belongs_to :company, optional: true
   has_many :entities
+  has_one :user, through: :product
+  has_one :company, through: :product
 end
