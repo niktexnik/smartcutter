@@ -1,15 +1,17 @@
 module Api
   module V1
-    class AssetsController < ApplicationController
-      def index; end
+    module Users
+      class AssetsController < ApplicationController
+        def index; end
 
-      def show; end
+        def show; end
 
-      def create; end
+        def create; end
 
-      def update; end
+        def update; end
 
-      def destroy; end
+        def destroy; end
+      end
     end
   end
 end

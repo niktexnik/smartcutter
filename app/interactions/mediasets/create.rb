@@ -18,13 +18,14 @@ module Mediasets
     def call(params)
       params = yield Contract.new.validate_params(params)
       @product ||= Product.find(params[:product_id])
-      ::Entities::Create.new.call(mediaset: create_mediaset(params))
+      ::Entities::Create.new.call(create_mediaset(params))
+      Success(@mediaset)
     end
 
     private
 
     def create_mediaset(params)
-      @product.mediasets.create(params[:name])
+      @mediaset = @product.mediasets.create(name: params[:name])
     end
   end
 end

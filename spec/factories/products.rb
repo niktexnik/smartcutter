@@ -53,4 +53,17 @@ FactoryBot.define do
       create(:asset, :with_watermark, product:)
     end
   end
+
+  trait :with_all_patterns do
+    after(:create) do |product|
+      create(:pattern, :front_view, product:)
+      create(:pattern, :back_view, product:)
+      create(:pattern, :left_side_view, product:)
+      create(:pattern, :right_side_view, product:)
+      create(:pattern, :front_angle_left_view, product:)
+      create(:pattern, :front_angle_right_view, product:)
+      create(:pattern, :back_angle_left_view, product:)
+      create(:pattern, :back_angle_right_view, product:)
+    end
+  end
 end

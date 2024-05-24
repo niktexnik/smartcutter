@@ -2,7 +2,6 @@ module Api
   module V1
     module Companies
       class MediasetsController < ApplicationController
-        before_action :mediaset
         def index
           render json: { data: current_user.company.mediasets }
         end
@@ -12,11 +11,15 @@ module Api
         end
 
         def create
-          ::Mediasets::Create.new.call(params)
+          process_interaction_result(::Mediasets::Create.new.call(params)) do |result|
+            render json: { data: result }
+          end
         end
 
         def regenerate
-          ::Mediasets::Regenerate.new.call(params)
+          process_interaction_result(::Mediasets::Regenerate.new.call(params)) do |result|
+            render json: { data: result }
+          end
         end
 
         def destroy

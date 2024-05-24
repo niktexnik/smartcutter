@@ -4,11 +4,22 @@ module Interactionable
   included do
     private
 
-    def process_dry_monad_result(result)
+    # rubocop:disable Style/ExplicitBlockArgument
+    def process_interaction_result(result)
       result.either(
-        ->(success) { yield success },
-        ->(failure) { render json: { error: failure }, status: :bad_request }
+        ->(data) { yield data },
+        ->(failure) { render_interaction_error(failure) }
       )
+    end
+    # rubocop:enable Style/ExplicitBlockArgument
+
+    def render_interaction_error(error)
+      logger.info(error)
+      render json: { error: }, status: InteractionErrors.http_status(error)
+    end
+
+    def authenticate_user
+      render_interaction_error(InteractionErrors.authentication_error) unless current_user
     end
   end
 end
