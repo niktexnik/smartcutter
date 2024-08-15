@@ -43,9 +43,7 @@ jobs:
         with:
           bundler-cache: true
       - name: Generate binstubs
-        run: bundle binstubs brakeman rubocop
-      # - name: Security audit application code
-      #   run: bin/brakeman -q -w2
+        run: bundle binstubs rubocop
       - name: Lint Ruby files
         run: bin/rubocop --parallel
       - name: Run rspec
