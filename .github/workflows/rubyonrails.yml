@@ -31,7 +31,7 @@ jobs:
       - name: Run tests
         run: bin/rake
       - name: Run docs
-        run: rake docs:all:generate
+        run: bundle exec rake docs:all:generate
 
   lint:
     runs-on: ubuntu-latest
