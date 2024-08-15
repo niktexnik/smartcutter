@@ -36,6 +36,12 @@ gem 'slim'
 gem 'kaminari'
 
 group :development, :test do
+  # deploy
+  gem 'brakeman'
+  gem 'capistrano', require: false
+  gem 'capistrano3-puma', github: 'seuros/capistrano-puma'
+  gem 'capistrano-rails'
+  gem 'capistrano-rbenv'
   gem 'debug', platforms: %i[mri mswin mswin64 mingw x64_mingw]
   # Testing
   gem 'capybara'

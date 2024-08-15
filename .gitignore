@@ -28,8 +28,14 @@
 /tmp/storage/*
 !/tmp/storage/
 !/tmp/storage/.keep
-
+/public/assets
+/coverage/*
+/coverage
 # Ignore master key for decrypting credentials and more.
 /config/master.key
 /public/uploads/*
 /config/credentials/development.key
+
+/config/credentials/staging.key
+
+/config/credentials/testing.key

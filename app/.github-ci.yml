@@ -1,0 +1,63 @@
+# This file is a template, and might need editing before it works on your project.
+# Official language image. Look for the different tagged releases at:
+# https://hub.docker.com/r/library/ruby/tags/
+image: "ruby:3.3.0"
+
+services:
+  - postgres:latest
+  - redis:7-alpine
+
+variables:
+  REDIS_URL: redis://redis:6379
+  POSTGRES_PASSWORD: "1234567890"
+  DATABASE_PASSWORD: ${POSTGRES_PASSWORD}
+  POSTGRES_HOST: postgres
+  DATABASE_HOST: ${POSTGRES_HOST}
+  POSTGRES_USER: postgres
+  DATABASE_USERNAME: ${POSTGRES_USER}
+  CI: true
+
+stages:
+  - codestyle
+  - brakeman
+  - test
+  - deploy
+
+before_script:
+  - ruby -v
+  - gem install bundler
+  - bundle install --path /vendor
+  - RAILS_ENV=test bundle exec rails db:create db:migrate
+
+rubocop:
+  stage: codestyle
+  script:
+    - bundle exec rubocop
+
+brakeman:
+  stage: brakeman
+  script:
+    - bundle exec brakeman
+
+rspec:
+  stage: test
+  script:
+    - RAILS_ENV=test bundle exec rspec spec
+  coverage: '/\(\d+.\d+\%\)\scovered/'
+
+docs:
+  stage: test
+  needs: ["rspec"]
+  script:
+    - RAILS_ENV=test bundle exec rails db:create db:migrate
+    - RAILS_ENV=test bundle exec rake docs:all:generate
+
+deploy_to_staging:
+  stage: deploy
+  script:
+    - bundle exec cap staging deploy
+    - bundle exec cap staging docs:install
+  only:
+    - /^release-\d\.\d\.\d/
+    - staging
+    - main
