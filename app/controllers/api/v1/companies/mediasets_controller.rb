@@ -24,7 +24,7 @@ module Api
 
         def destroy
           mediaset.destroy
-          head 204
+          head :no_content
         end
 
         private

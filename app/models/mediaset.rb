@@ -19,9 +19,8 @@
 #  fk_rails_...  (product_id => products.id)
 #
 class Mediaset < ApplicationRecord
-  belongs_to :product
-  belongs_to :company, optional: true
-  has_many :entities
+  belongs_to :product, dependent: :destroy
+  has_many :entities, dependent: :destroy
   has_one :user, through: :product
   has_one :company, through: :product
 end

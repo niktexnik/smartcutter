@@ -26,9 +26,9 @@ FactoryBot.define do
   factory :session do
     device
     access_token { SecureRandom.urlsafe_base64(256, false) }
-    access_token_expires_at { Time.zone.now + 1.hour }
+    access_token_expires_at { 1.hour.from_now }
     ip { Faker::Internet.ip_v4_address }
     refresh_token { SecureRandom.urlsafe_base64(256, false) }
-    refresh_token_expires_at { Time.zone.now + 1.week }
+    refresh_token_expires_at { 1.week.from_now }
   end
 end

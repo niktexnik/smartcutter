@@ -21,11 +21,11 @@
 #  fk_rails_...  (mediaset_id => mediasets.id)
 #
 class Entity < ApplicationRecord
-  belongs_to :mediaset
-  has_many :photos
-  has_one :original_photo, class_name: '::OriginalPhoto'
-  has_one :processed_photo, class_name: '::ProcessedPhoto'
-  has_one :manual_processed_photo, class_name: '::ManualProcessedPhoto'
+  belongs_to :mediaset, dependent: :destroy
+  has_many :photos, dependent: :destroy
+  has_one :original_photo, class_name: '::OriginalPhoto', dependent: :destroy
+  has_one :processed_photo, class_name: '::ProcessedPhoto', dependent: :destroy
+  has_one :manual_processed_photo, class_name: '::ManualProcessedPhoto', dependent: :destroy
 
-  validates :position, uniqueness: { scope: :mediaset_id }
+  # validates :position, uniqueness: { scope: :mediaset_id }
 end

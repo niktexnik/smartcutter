@@ -23,7 +23,7 @@
 class Product < ApplicationRecord
   belongs_to :company, optional: true
   belongs_to :user, optional: true
-  has_many :mediasets
-  has_many :assets
-  has_many :patterns
+  has_many :mediasets, dependent: :destroy
+  has_many :assets, dependent: :destroy
+  has_many :patterns, dependent: :destroy
 end

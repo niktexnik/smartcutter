@@ -25,7 +25,7 @@
 #
 class Company < ApplicationRecord
   belongs_to :user
-  has_many :products
-  has_many :assets
-  has_many :mediasets
+  has_many :products, dependent: :destroy
+  has_many :assets, dependent: :destroy
+  has_many :mediasets, dependent: :destroy
 end

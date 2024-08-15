@@ -13,9 +13,6 @@ module V1
           optional(:app_version).maybe(:string)
           optional(:ip).filled(:string)
         end
-
-        rule(:email) do
-        end
       end
 
       def call(params)

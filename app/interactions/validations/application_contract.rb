@@ -4,8 +4,8 @@ module Validations
 
     config.messages.backend = :i18n
 
-    def self.use_schemas(*schemas, &block)
-      params(*schemas.map(&:params), &block)
+    def self.use_schemas(*schemas, &)
+      params(*schemas.map(&:params), &)
 
       schemas.each do |schema|
         class_eval(&schema.rules)
