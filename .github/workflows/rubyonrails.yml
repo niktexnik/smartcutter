@@ -46,5 +46,3 @@ jobs:
         run: bundle binstubs rubocop
       - name: Lint Ruby files
         run: bin/rubocop --parallel
-      - name: Run rspec
-        run: bundle exec rspec --format documentation

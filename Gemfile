@@ -60,6 +60,7 @@ group :development do
   gem 'pp_sql'
   # Code styling
   gem 'rubocop', require: false
+  gem 'rubocop-rails', require: false
   gem 'rubocop-rspec'
   # Mail previewer
   gem 'letter_opener'
