@@ -25,7 +25,7 @@ RSpec.describe 'Users', type: :request do
 
   path '/api/v1/users/confirm_email' do
     get 'Подтверждение почты' do
-      parameter first_name: :confirmation_token, in: :query, required: true, type: :string
+      parameter name: :confirmation_token, in: :query, required: true, type: :string
       response '200', 'valid token' do
         let(:confirmation_token) { email_confirmation.confirmation_token }
 
@@ -38,7 +38,7 @@ RSpec.describe 'Users', type: :request do
 
   path '/api/v1/users/recovery_password_confirmation' do
     get 'Восстановление пароля(подтверждение через почту)' do
-      parameter first_name: :reset_password_token, in: :query, required: true, type: :string
+      parameter name: :reset_password_token, in: :query, required: true, type: :string
       response '204', 'successfull' do
         run_test! do |response|
           expect(response.status).to eq(204)
@@ -65,7 +65,7 @@ RSpec.describe 'Users', type: :request do
 
   path '/api/v1/users/reset_password' do
     get 'Запрос на восстановление пароля' do
-      parameter first_name: :email, in: :query, required: true, type: :string
+      parameter name: :email, in: :query, required: true, type: :string
       response '204', 'no content' do
         let(:email) { user.email }
 
@@ -94,7 +94,7 @@ RSpec.describe 'Users', type: :request do
 
   path '/api/v1/users/check_email' do
     get 'Запрос на проверку наличия почты в системе' do
-      parameter first_name: :email, in: :query, required: true, type: :string
+      parameter name: :email, in: :query, required: true, type: :string
       response '200', 'successfull' do
         let(:email) { 'asdas@asdas.ru' }
 
