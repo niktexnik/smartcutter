@@ -7,9 +7,9 @@
 #  build       :string
 #  city        :string
 #  description :string
+#  name        :string
 #  flat        :string
 #  logo        :string
-#  name        :string
 #  street      :string
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null

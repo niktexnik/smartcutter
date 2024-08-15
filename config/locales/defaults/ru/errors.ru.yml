@@ -1,0 +1,21 @@
+ru:
+  interaction_errors:
+    error_messages:
+      validation_error: "Данные заполнены неверно."
+      authentication_error: "Пользователь не авторизован."
+      authorization_error: "У пользователя нет прав для выполнения данного действия."
+      not_found_error: "Не удалось найти запрашиваемый ресурс."
+      draft_signature_error: "Не удалось добавить подпись."
+      default_error: "В данный момент сервис недоступен. Попробуйте позже."
+      unexpected_error: "Непредвиденная ошибка"
+  custom_errors:
+    invalid_credentials: "Неверный пароль"
+    email_not_found: "Пользователь с таким email не найден"
+    email_exists: "Пользователь уже зарегистрирован"
+    invalid_refresh_token: "Невалидный refresh_token"
+    not_null: "Заполните обязательные поля"
+    wrong_password: 'Неверно введен текущий пароль'
+    confirmation_error: 'Вы не подтвердили почту'
+    phone_exists: "Пользователь с таким номером телефона уже существует"
+    different_passwords: "Пароли не совпадают"
+    reset_token_expired: "Срок действия ссылки истек"

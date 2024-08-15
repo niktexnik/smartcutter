@@ -1,7 +1,7 @@
 module Api
   module V1
     module Users
-      class MediasetsController < ApplicationController
+      class MediasetsController < Api::V1::ApiController
         def index
           render json: { data: current_user.mediasets }
         end

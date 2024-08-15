@@ -26,7 +26,7 @@ FactoryBot.define do
   factory :asset do
     name { Faker::Lorem.word }
     image do
-      Rack::Test::UploadedFile.new(Rails.root.join('spec', 'support', 'background_asset.jpg'), 'image/jpeg')
+      Rack::Test::UploadedFile.new(Rails.root.join('spec', 'fixtures', 'files', 'background_asset.jpg'), 'image/jpeg')
     end
     position { Faker::Lorem.word }
     asset_type { 'background' }

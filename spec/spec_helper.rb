@@ -8,4 +8,11 @@ RSpec.configure do |config|
   end
 
   config.shared_context_metadata_behavior = :apply_to_host_groups
+
+  config.default_formatter = 'doc' if config.files_to_run.one?
+
+  config.profile_examples = 10
+  config.order = :random
+
+  Kernel.srand config.seed
 end

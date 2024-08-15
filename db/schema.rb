@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_17_125744) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_14_103452) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -52,6 +52,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_17_125744) do
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["identifier"], name: "index_devices_on_identifier", unique: true
     t.index ["user_id"], name: "index_devices_on_user_id"
   end
 
@@ -118,39 +119,45 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_17_125744) do
     t.bigint "device_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["access_token"], name: "index_sessions_on_access_token", unique: true
     t.index ["device_id"], name: "index_sessions_on_device_id"
-  end
-
-  create_table "sms_confirmations", force: :cascade do |t|
-    t.string "state"
-    t.datetime "confirmed_at"
-    t.integer "count_failure_input"
-    t.integer "code"
-    t.bigint "device_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["device_id"], name: "index_sms_confirmations_on_device_id"
-  end
-
-  create_table "sms_requests", force: :cascade do |t|
-    t.string "phone"
-    t.string "state"
-    t.inet "ip"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.index ["refresh_token"], name: "index_sessions_on_refresh_token", unique: true
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "name"
-    t.string "surname"
+    t.string "first_name"
+    t.string "last_name"
     t.string "middle_name"
     t.string "email"
     t.boolean "agreement", default: false
+    t.boolean "email_confirmed", default: false
     t.string "phone"
     t.integer "company_id"
-    t.integer "count_of_failure_sms_confirmation", default: 0
+    t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["phone"], name: "index_users_on_phone", unique: true
+  end
+
+  create_table "users_email_confirmations", force: :cascade do |t|
+    t.string "confirmation_token"
+    t.datetime "confirmation_token_expires_at"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["confirmation_token"], name: "index_users_email_confirmations_on_confirmation_token", unique: true
+    t.index ["user_id"], name: "index_users_email_confirmations_on_user_id"
+  end
+
+  create_table "users_reset_password_confirmations", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "reset_token"
+    t.datetime "reset_token_expires_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["reset_token"], name: "index_users_reset_password_confirmations_on_reset_token", unique: true
+    t.index ["user_id"], name: "index_users_reset_password_confirmations_on_user_id"
   end
 
   add_foreign_key "assets", "companies"
@@ -164,5 +171,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_17_125744) do
   add_foreign_key "products", "companies"
   add_foreign_key "products", "users"
   add_foreign_key "sessions", "devices"
-  add_foreign_key "sms_confirmations", "devices"
+  add_foreign_key "users_email_confirmations", "users"
+  add_foreign_key "users_reset_password_confirmations", "users"
 end

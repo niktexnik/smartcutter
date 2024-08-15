@@ -1,14 +1,14 @@
 module RswagExtensions
   class BuildObjectSchema
-    Field = Struct.new(:name, :properties, keyword_init: true)
+    Field = Struct.new(:first_name, :properties, keyword_init: true)
 
     def initialize(nullable: false)
       @nullable = nullable
     end
 
     def call(fields)
-      parsed_fields = fields.map do |name, opts|
-        Field.new(name:, properties: field_properties(opts))
+      parsed_fields = fields.map do |first_name, opts|
+        Field.new(first_name:, properties: field_properties(opts))
       end
 
       {
@@ -23,13 +23,13 @@ module RswagExtensions
 
     def collect_properties(fields)
       fields.each_with_object({}) do |field, result|
-        result[field.name] = field.properties.except(:optional)
+        result[field.first_name] = field.properties.except(:optional)
       end
     end
 
     def collect_required_fields(fields)
       fields.each_with_object([]) do |field, result|
-        result.push(field.name) unless field.properties[:optional]
+        result.push(field.first_name) unless field.properties[:optional]
       end
     end
 

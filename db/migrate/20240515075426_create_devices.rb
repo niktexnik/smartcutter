@@ -9,6 +9,7 @@ class CreateDevices < ActiveRecord::Migration[7.1]
       t.datetime :confirmed_at
       t.references :user, null: false, foreign_key: true
 
+      t.index :identifier, unique: true
       t.timestamps
     end
   end

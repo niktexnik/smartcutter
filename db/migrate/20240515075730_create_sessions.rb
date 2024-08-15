@@ -8,6 +8,8 @@ class CreateSessions < ActiveRecord::Migration[7.1]
       t.datetime :refresh_token_expires_at
       t.references :device, null: false, foreign_key: true
 
+      t.index :access_token, unique: true
+      t.index :refresh_token, unique: true
       t.timestamps
     end
   end

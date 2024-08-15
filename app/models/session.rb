@@ -14,7 +14,9 @@
 #
 # Indexes
 #
-#  index_sessions_on_device_id  (device_id)
+#  index_sessions_on_access_token   (access_token) UNIQUE
+#  index_sessions_on_device_id      (device_id)
+#  index_sessions_on_refresh_token  (refresh_token) UNIQUE
 #
 # Foreign Keys
 #
@@ -26,8 +28,8 @@ class Session < ApplicationRecord
   validates :access_token, presence: true
   delegate :user, to: :device, allow_nil: true
 
-  scope :access_token_active, -> { where('refresh_token_expire_at > ?', Time.zone.now) }
-  scope :refresh_token_active, -> { where('token_expire_at > ?', Time.zone.now).where.not(refresh_token: nil) }
+  scope :access_token_active, -> { where('access_token_expires_at > ?', Time.zone.now) }
+  scope :refresh_token_active, -> { where('refresh_token_expires_at > ?', Time.zone.now).where.not(refresh_token: nil) }
 
   def self.generate_token(field, length = 256)
     loop do

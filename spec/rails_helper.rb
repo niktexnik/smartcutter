@@ -1,41 +1,28 @@
-# This file is copied to spec/ when you run 'rails generate rspec:install'
 require 'spec_helper'
 ENV['RAILS_ENV'] ||= 'test'
 require_relative '../config/environment'
-# Prevent database truncation if the environment is production
 abort('The Rails environment is running in production mode!') if Rails.env.production?
 require 'rspec/rails'
+Dir[Rails.root.join('spec/support/*.rb')].each { |f| require f }
+Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 begin
   ActiveRecord::Migration.maintain_test_schema!
 rescue ActiveRecord::PendingMigrationError => e
   abort e.to_s.strip
 end
+
+WebMock.disable_net_connect!(allow_localhost: true)
+
 RSpec.configure do |config|
-  # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_paths = [
     Rails.root.join('spec/fixtures')
   ]
+  config.include RequestHelpers
+  config.include FactoryBot::Syntax::Methods
+  ActiveJob::Base.queue_adapter = :test
   config.use_transactional_fixtures = true
+
   config.infer_spec_type_from_file_location!
+
   config.filter_rails_from_backtrace!
-  config.before(:example, http_request: true) do
-    WebMock.allow_net_connect!
-  end
-
-  config.after(:example, http_request: true) do
-    WebMock.disable_net_connect!
-  end
-
-  config.before(:suite) do
-    DatabaseCleaner.allow_remote_database_url = true
-    DatabaseCleaner.strategy = :transaction
-    DatabaseCleaner.clean_with(:truncation)
-    ActiveJob::Base.queue_adapter = :test
-  end
-
-  config.around(:each) do |example|
-    DatabaseCleaner.cleaning do
-      example.run
-    end
-  end
 end

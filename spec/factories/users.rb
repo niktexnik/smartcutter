@@ -2,27 +2,34 @@
 #
 # Table name: users
 #
-#  id                                :bigint           not null, primary key
-#  agreement                         :boolean          default(FALSE)
-#  count_of_failure_sms_confirmation :integer          default(0)
-#  email                             :string
-#  middle_name                       :string
-#  name                              :string
-#  phone                             :string
-#  surname                           :string
-#  created_at                        :datetime         not null
-#  updated_at                        :datetime         not null
-#  company_id                        :integer
+#  id              :bigint           not null, primary key
+#  agreement       :boolean          default(FALSE)
+#  email           :string
+#  email_confirmed :boolean          default(FALSE)
+#  first_name      :string
+#  last_name       :string
+#  middle_name     :string
+#  password_digest :string
+#  phone           :string
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  company_id      :integer
+#
+# Indexes
+#
+#  index_users_on_email  (email) UNIQUE
+#  index_users_on_phone  (phone) UNIQUE
 #
 FactoryBot.define do
   factory :user do
     email { Faker::Internet.email }
-    name { Faker::Name.first_name }
+    first_name { Faker::Name.first_name }
     middle_name { Faker::Name.middle_name }
-    surname { Faker::Name.last_name }
+    last_name { Faker::Name.last_name }
     phone { Faker::PhoneNumber.phone_number }
     agreement { true }
-    count_of_failure_sms_confirmation { 0 }
+    email_confirmed { true }
+    password { 'Password123!' }
 
     trait :with_device do
       after(:create) do |user|
@@ -57,6 +64,18 @@ FactoryBot.define do
     trait :with_patterns do
       after(:create) do |user|
         create(:product, :with_patterns, user:)
+      end
+    end
+
+    trait :with_email_confirmation do
+      after(:create) do |user|
+        create(:email_confirmation, user:)
+      end
+    end
+
+    trait :with_reset_password_confirmation do
+      after(:create) do |user|
+        create(:reset_password_confirmation, user:)
       end
     end
   end

@@ -20,7 +20,7 @@
 #
 FactoryBot.define do
   factory :mediaset do
-    name { Faker::Lorem.word }
+    first_name { Faker::Lorem.word }
     ready { false }
     state { :empty }
 

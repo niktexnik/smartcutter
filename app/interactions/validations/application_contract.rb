@@ -38,6 +38,12 @@ module Validations
       evaluator.key.failure(:format?) if evaluator.value.present? && evaluator.value.match(User::VALID_EMAIL_REGEX).nil?
     end
 
+    def password_validation(evaluator)
+      return unless evaluator.value.present? && evaluator.value.match(User::VALID_PASSWORD_REGEX).nil?
+
+      evaluator.key.failure(:format?)
+    end
+
     def match_regexp(evaluator, regexp)
       evaluator.key.failure(:format?) if evaluator.value.present? && evaluator.value.match(regexp).nil?
     end

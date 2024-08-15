@@ -15,7 +15,8 @@
 #
 # Indexes
 #
-#  index_devices_on_user_id  (user_id)
+#  index_devices_on_identifier  (identifier) UNIQUE
+#  index_devices_on_user_id     (user_id)
 #
 # Foreign Keys
 #
@@ -29,10 +30,7 @@ class Device < ApplicationRecord
 
   belongs_to :user, inverse_of: :devices, optional: true
   has_many :sessions, dependent: :destroy
-  has_many :sms_confirmations, dependent: :destroy
 
-  validates :identifier, :platform, presence: true, allow_nil: false
-  validates :identifier, uniqueness: { scope: %i[user_id platform] }, if: proc { |device| device.user_id.present? }
   validates :platform, inclusion: { in: PLATFORMS }
 
   scope :active, -> { where(active: true) }
@@ -44,10 +42,8 @@ class Device < ApplicationRecord
   end
 
   def create_new_session(ip:)
-    sessions.create(access_token: SessionRecord.generate_token(:access_token),
-                    token_expires_at: 30.days.from_now,
-                    refresh_token: SessionRecord.generate_token(:access_token, 512),
-                    refresh_token_expires_at: 2.months.from_now,
+    sessions.create(access_token: Session.generate_token(:access_token), access_token_expires_at: 30.days.from_now,
+                    refresh_token: Session.generate_token(:access_token, 512), refresh_token_expires_at: 2.months.from_now,
                     ip:)
   end
 end

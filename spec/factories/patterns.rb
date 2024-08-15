@@ -21,7 +21,7 @@
 FactoryBot.define do
   factory :pattern do
     image do
-      Rack::Test::UploadedFile.new(Rails.root.join('spec', 'support', 'pattern.svg'), 'image/svg')
+      Rack::Test::UploadedFile.new(Rails.root.join('spec', 'fixtures', 'files', 'pattern.svg'), 'image/svg')
     end
     name { Faker::Lorem.word }
     road_height { Faker::Number.between(from: 1, to: 100) }

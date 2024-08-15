@@ -1,7 +1,7 @@
 module Api
   module V1
     module Mediasets
-      class EntitiesController < ApplicationController
+      class EntitiesController < Api::V1::ApiController
         def show; end
 
         def create; end

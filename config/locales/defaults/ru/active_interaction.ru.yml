@@ -1,0 +1,15 @@
+ru:
+  active_interaction:
+    errors:
+      invalid_password: Указан неверный пароль.
+  dry_interaction:
+    errors:
+      validation_error: Неверные параметры запроса. Проверьте введенные данные и попробуйте снова.
+  sms_confirmations:
+    errors:
+      invalid_sms_code: Неверный код
+      lifetime_sms: Пожалуйста, попробуйте позднее
+      sms_ban: Слишком много попыток ввода смс
+      sms_not_valid: Смс неверное, попробуйте запросить новое смс
+      ban_time: В данный момент вы не можете запросить новое смс. Попробуйте через 1 час.
+    sms_code_message: '%{sms_code} - ваш код доступа.'

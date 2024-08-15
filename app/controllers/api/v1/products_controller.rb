@@ -1,6 +1,6 @@
 module Api
   module V1
-    class ProductsController < ::ApplicationController
+    class ProductsController < ::Api::V1::ApiController
       def index; end
 
       def show; end

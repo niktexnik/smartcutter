@@ -1,0 +1,652 @@
+---
+openapi: 3.0.1
+info:
+  title: Smartcutter API
+  version: v1
+paths:
+  "/api/v1/sessions/login":
+    post:
+      summary: Вход
+      parameters: []
+      tags:
+      - Сессия
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              example:
+                id: 2
+                ip: 127.0.0.1
+                access_token: kdKI5D5mL2CDFLYcNmfXoObWXb4POmBXFxB3-GRBb6CkxoMSVU6DhqB8740aWjSA_DmGq8lJc1LrSMByYJOXxiFo9S2gRHR5j8LXMsNOWX2KciewEcxuVQZywx0sFTqx-qmxsucbCnaW_jn-8NpMf4oG717VD95C7OmiDCJeRi__bpFAywptYSCnyHUncgpeaD6vgwiu_pxQvg8hqBCWiII5zoJZkoriPofYE4eaql5qZH_fIJO0ie_1G02KmDeUmO50PaCUafPoHJmyfOnVdqOFV4E_5jf4WN7MNzr6wiKZAEfl0hgbl6QGK4TmMOdfbG0GQA-E1ZAhWpZd5o3CjQ
+                access_token_expires_at: '2024-09-14T07:30:08.536Z'
+                refresh_token: m3mtPPutmlWwZTaVtzxYqU8qtvX5bTmPY5iq-qmGWlgDLFN3QyUM1Hi16Pg4ZL6UuKiP2uWMj-gWQFAkERfgpW4_nfca2NLvbEcgDDQr_6vkN_986wTJqFBtSVeb5ep7W3GIdIXt01o8ux4U8jtG4imjpvQ1BHC9iiG9p3CnYSutn0yLHvvC0sKxNeMi8EpYOhViEzMFQNxef_KaZ1An0u55D6nnye9sOKocNIui9TO20_QaatAi5vkTdbWI4hLmpFvggaGrtpb39qS7acVMeCb-vtantLaF7nuX-eqUXv3ETBl35bnTEra7wTEGxVqjccLV0mYqvOco37t2RcCZJJ4iGI_w0_p7RT5fqRYwkJY7oidyfkuZKwzFRlR2yBhd8tzfnt-lXXLCswGXnNLUMDqy1Y-nsbfp8Q2RDCijUMVCRUPWeYuoSoNgbxwWj0EG8PfcbjraHZFyvOuI3m3n4tSA4QhnnWwnQblWUO80nj2hLGf4ZfReAUwiceov5Rm4qE9xUfgspkTPPvuCNeSwIWeb8iaVDe26SAKzAZLmDkNsSePrY_soWnDqob6fh2D9HuKO0JFIBZO1K_NBxEZ-soXDJpz4FR7Vh4-D5LdxGvtTKbAQL7oXz-kq4zwpCnLhs0ce8c6HfvBo4PXHV3LSgfhLUiV8ibPV6Y0nRhryEmI
+                refresh_token_expires_at: '2024-10-15T07:30:08.536Z'
+                device_id: 2
+                created_at: '2024-08-15T07:30:08.537Z'
+                updated_at: '2024-08-15T07:30:08.537Z'
+              schema:
+                type: object
+                nullable: false
+                properties:
+                  access_token:
+                    type: string
+                  refresh_token:
+                    type: string
+                  access_token_expires_at:
+                    type: datetime
+                  refresh_token_expires_at:
+                    type: datetime
+                required:
+                - access_token
+                - refresh_token
+                - access_token_expires_at
+                - refresh_token_expires_at
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              nullable: false
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+                platform:
+                  type: string
+                identifier:
+                  type: string
+                app_version:
+                  type: string
+                ip:
+                  type: string
+              required:
+              - email
+              - password
+              - platform
+              - identifier
+              example:
+                email: jeffie_kihn@gerlach.test
+                password: Password123!
+                platform: ios
+                identifier: test
+                app_version: 1.0.0
+                ip: 127.0.0.1
+  "/api/v1/sessions/current":
+    get:
+      summary: Текущая сессия
+      tags:
+      - Сессия
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              example:
+                access_token_expires_at: '2024-08-15T08:30:08.566Z'
+                access_token: F2jswu4qS_SK5BeDbk3BLnuWnEP9XSvvCO7WyLFbV-dQpKFNmW73ikEEErrtsSXc4np7y-WZD5vE-Xax8Z8swv6aLx0u4BqJRV6vtjbxgDDWxVriRcZXhpCwtPgeEbhStpHtU4YInl0FR8g8CqXEMpsurCJJmdfFaKpjBZ-jfymH7yrB2h9BSK1F64_DK16SL74iuijlXVqZBDxONAsfZPN_MFuWXPfsHb5lkqKDozoUdFxyQ_HcZ4_-Sr8AVV2SKvSLi-enlyTN7U4rehG0SC8xEHaKVWPd4Cj9fzLD3BAKYDa8P2bdiILnLWGufbiw5gS2fP510ikhFbcTDNhsKQ
+                refresh_token: R9W8qSM5WRUS9uUNjKQamFqgf7IhvR2QGFsNslCNJFWNdKzXEVrXC-LMAyHWhuMlN0NLopOhRBMlNCurJm0agXZxHujN8otXEzESDzfb92xYuuLMhP27y9b_a59hdqmfQhQRg_apDz9GqbczXiR0W2Nr0LC-SXsBTewL2C3Tnl8Grjo6mteDwN_mXc301Wg50QELbBPPlWJmZpVtetGyF_T0A9YhI1PqOwp0DEYddsAd0QmnP8XKE0kNs3ZoDQUC7BX1yxtOXWcru38auc27KBxxIzEzqmTgKdLTRJNwHC-0qBg8YbAj3UjlmIMg6nrNdhjs9k8DzqF6Lfo9885k7g
+                refresh_token_expires_at: '2024-08-22T07:30:08.566Z'
+              schema:
+                type: object
+                nullable: false
+                properties:
+                  access_token:
+                    type: string
+                  refresh_token:
+                    type: string
+                  access_token_expires_at:
+                    type: datetime
+                  refresh_token_expires_at:
+                    type: datetime
+                required:
+                - access_token
+                - refresh_token
+                - access_token_expires_at
+                - refresh_token_expires_at
+  "/api/v1/sessions/refresh_session":
+    post:
+      summary: Обновление access_token
+      parameters: []
+      tags:
+      - Сессия
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              example:
+                access_token_expires_at: '2024-08-15T08:30:08.603Z'
+                access_token: QfRnjyayATRC9m48Il-ahzejJ4-cDu1Q88rdQNfZOMykBIFdWt5opAdMjYRzPb4yKlTwSIoCyFQ4Q58CA1DIFk93ziOVPZei98dDisBwENfgN5UkLucG6p6owMtfL7AohVsZ6dnfkaeHn3FASnBTa2VHf11NwPzPlsdv8UnnD1GsowZTLVoRsoRQXrBmEWSqTQ_FARBMKyZH7B89YgWiCXUKyxRbmJWYp7JKoF-fp9lR_2g17HSsOfjLJ-jN8Sf8xMQrVMYJyrHYkihs2lWdks1KjEbgBkqzAb0739igbcBC6Q3bzskYbCXfxTllAtZ85m4JiFH1E1TJKgcT1MDlzA
+                refresh_token: jAz9so1TKi9JYu_6-gFSRQBRun0zlMMhhSCDCxeUb1sEXNy8PAI-4-YcK1vhCFR_DDc7YF7MNn1aNG6pgM6M2ICtRBldxltnA4KD11jgE1Fr5Gvu-gzAm2-R8N79Nv0F8B1f4m-fbdHQWT7ggjQkjsVvbJcbQ05n1yVRRbbHuWcX_zrWmBNGPuIp8ufgX0Gwo4PnUYrSUjKhtOqL9dLH0fW_PJGMtNLqE54oPA759PQFbM12hE6AujBwQlqaODgAae9kGGvLQmXD50AoqVd1hLk1_829E63tDXLZ8inrpzinqHwfAX0FG0_a-shBV9TGkdY0amG3yotmmBFH3fVymA
+                refresh_token_expires_at: '2024-08-22T07:30:08.603Z'
+              schema:
+                type: object
+                nullable: false
+                properties:
+                  access_token:
+                    type: string
+                  refresh_token:
+                    type: string
+                  access_token_expires_at:
+                    type: datetime
+                  refresh_token_expires_at:
+                    type: datetime
+                required:
+                - access_token
+                - refresh_token
+                - access_token_expires_at
+                - refresh_token_expires_at
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              nullable: false
+              properties:
+                refresh_token:
+                  type: string
+                identifier:
+                  type: string
+                platform:
+                  type: string
+                app_version:
+                  type: string
+                ip:
+                  type: string
+              required:
+              - refresh_token
+              - identifier
+              - platform
+              example:
+                refresh_token: jAz9so1TKi9JYu_6-gFSRQBRun0zlMMhhSCDCxeUb1sEXNy8PAI-4-YcK1vhCFR_DDc7YF7MNn1aNG6pgM6M2ICtRBldxltnA4KD11jgE1Fr5Gvu-gzAm2-R8N79Nv0F8B1f4m-fbdHQWT7ggjQkjsVvbJcbQ05n1yVRRbbHuWcX_zrWmBNGPuIp8ufgX0Gwo4PnUYrSUjKhtOqL9dLH0fW_PJGMtNLqE54oPA759PQFbM12hE6AujBwQlqaODgAae9kGGvLQmXD50AoqVd1hLk1_829E63tDXLZ8inrpzinqHwfAX0FG0_a-shBV9TGkdY0amG3yotmmBFH3fVymA
+                identifier: test
+                platform: ios
+                app_version: 1.0.0
+                ip: 127.0.0.1
+  "/api/v1/sessions/logout":
+    delete:
+      summary: Выход
+      tags:
+      - Сессия
+      responses:
+        '204':
+          description: no content
+          content:
+            application/json:
+              example: ''
+  "/api/v1/users/":
+    post:
+      summary: Создание пользователя
+      description: Создание нового пользователя
+      parameters: []
+      tags:
+      - Пользователь
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              example:
+                id: 5
+                first_name: 
+                last_name: 
+                middle_name: 
+                email: test@test.com
+                agreement: true
+                email_confirmed: false
+                phone: 
+                company_id: 
+                password_digest: "$2a$04$4Ch/wQ8ke3qQv3wwqXEzue7vV5ufFIHq2fhEWpyQPmJTWDGNwYW92"
+                created_at: '2024-08-15T07:30:08.658Z'
+                updated_at: '2024-08-15T07:30:08.658Z'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              nullable: false
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+                agreement:
+                  type: boolean
+                platform:
+                  type: string
+                identifier:
+                  type: string
+              required:
+              - email
+              - password
+              - agreement
+              - platform
+              - identifier
+              example:
+                email: test@test.com
+                password: TestPassword1!
+                agreement: true
+                platform: ios
+                identifier: test
+  "/api/v1/users/confirm_email":
+    get:
+      summary: Подтверждение почты
+      parameters:
+      - first_name: confirmation_token
+        in: query
+        required: true
+        schema:
+          type: string
+      tags:
+      - Пользователь
+      responses:
+        '200':
+          description: valid token
+  "/api/v1/users/recovery_password_confirmation":
+    get:
+      summary: Восстановление пароля(подтверждение через почту)
+      parameters:
+      - first_name: reset_password_token
+        in: query
+        required: true
+        schema:
+          type: string
+      tags:
+      - Пользователь
+      responses:
+        '204':
+          description: successfull
+  "/api/v1/users/authenticate":
+    post:
+      summary: Аутентификация пользователя
+      description: Аутентификация пользователя для совершения действий(изменения пароля,
+        изменение почты)
+      parameters: []
+      tags:
+      - Пользователь
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              example:
+                id: 6
+                email: edison@veum.example
+                phone: "(995)350-95-81"
+                email_confirmed: true
+                agreement: true
+                full_name: Маргарита Ларионов Егоров
+              schema:
+                type: object
+                nullable: false
+                properties:
+                  id:
+                    type: integer
+                  email:
+                    type: string
+                  full_name:
+                    type: string
+                  phone:
+                    type: string
+                    description: Формат номера 79xxxxxxxxx
+                  agreement:
+                    type: boolean
+                  email_confirmed:
+                    type: boolean
+                required:
+                - id
+                - email
+                - full_name
+                - phone
+                - agreement
+                - email_confirmed
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              nullable: false
+              properties:
+                password:
+                  type: string
+                password_confirmation:
+                  type: string
+              required:
+              - password
+              - password_confirmation
+              example:
+                password: Password123!
+                password_confirmation: Password123!
+  "/api/v1/users/reset_password":
+    get:
+      summary: Запрос на восстановление пароля
+      parameters:
+      - first_name: email
+        in: query
+        required: true
+        schema:
+          type: string
+      tags:
+      - Пользователь
+      responses:
+        '204':
+          description: no content
+  "/api/v1/users/recovery_password":
+    post:
+      summary: Установка нового пароля
+      parameters: []
+      tags:
+      - Пользователь
+      responses:
+        '204':
+          description: no content
+          content:
+            application/json:
+              example: ''
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              nullable: false
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+                password_confirmation:
+                  type: string
+              required:
+              - email
+              - password
+              - password_confirmation
+              example:
+                email: pauletta_skiles@pfeffer-metz.test
+                password: MyPassword1212!
+                password_confirmation: MyPassword1212!
+  "/api/v1/users/check_email":
+    get:
+      summary: Запрос на проверку наличия почты в системе
+      parameters:
+      - first_name: email
+        in: query
+        required: true
+        schema:
+          type: string
+      tags:
+      - Пользователь
+      responses:
+        '200':
+          description: successfull
+  "/api/v1/users/profile":
+    get:
+      summary: Отображает профиль пользователя
+      tags:
+      - Профиль пользователя
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              example:
+                id: 8
+                email: gertrud@greenfelder.test
+                phone: "(939)336-87-42"
+                email_confirmed: true
+                agreement: true
+                full_name: Вероника Лебедев Костина
+              schema:
+                type: object
+                nullable: false
+                properties:
+                  id:
+                    type: integer
+                  email:
+                    type: string
+                  full_name:
+                    type: string
+                  phone:
+                    type: string
+                    description: Формат номера 79xxxxxxxxx
+                  agreement:
+                    type: boolean
+                  email_confirmed:
+                    type: boolean
+                required:
+                - id
+                - email
+                - full_name
+                - phone
+                - agreement
+                - email_confirmed
+    put:
+      summary: Обновление профиля пользователя
+      parameters: []
+      tags:
+      - Профиль пользователя
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              example:
+                id: 9
+                email: marco.goyette@hand-pfannerstill.example
+                phone: "(958)839-23-73"
+                email_confirmed: true
+                agreement: true
+                full_name: 'Тест Тестович  Тестовичус '
+              schema:
+                type: object
+                nullable: false
+                properties:
+                  id:
+                    type: integer
+                  email:
+                    type: string
+                  full_name:
+                    type: string
+                  phone:
+                    type: string
+                    description: Формат номера 79xxxxxxxxx
+                  agreement:
+                    type: boolean
+                  email_confirmed:
+                    type: boolean
+                required:
+                - id
+                - email
+                - full_name
+                - phone
+                - agreement
+                - email_confirmed
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              nullable: false
+              properties:
+                first_name:
+                  type: string
+                middle_name:
+                  type: string
+                last_name:
+                  type: string
+              required: []
+              example:
+                first_name: Тест
+                last_name: 'Тестовичус '
+                middle_name: 'Тестович '
+  "/api/v1/users/profile/change_password":
+    patch:
+      summary: Обновление пароля
+      parameters: []
+      tags:
+      - Профиль пользователя
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              example:
+                id: 10
+                email: quinton@kohler-hickle.test
+                phone: "(931)194-65-88"
+                email_confirmed: true
+                agreement: true
+                full_name: Даниил Крылова Макаров
+              schema:
+                type: object
+                nullable: false
+                properties:
+                  id:
+                    type: integer
+                  email:
+                    type: string
+                  full_name:
+                    type: string
+                  phone:
+                    type: string
+                    description: Формат номера 79xxxxxxxxx
+                  agreement:
+                    type: boolean
+                  email_confirmed:
+                    type: boolean
+                required:
+                - id
+                - email
+                - full_name
+                - phone
+                - agreement
+                - email_confirmed
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              nullable: false
+              properties:
+                password:
+                  type: string
+                password_confirmation:
+                  type: string
+              required:
+              - password
+              - password_confirmation
+              example:
+                password: new_password21!
+                password_confirmation: new_password21!
+  "/api/v1/users/profile/change_email":
+    patch:
+      summary: Обновление эмэйла
+      parameters: []
+      tags:
+      - Профиль пользователя
+      responses:
+        '200':
+          description: no content
+          content:
+            application/json:
+              example:
+                id: 11
+                email: test@tres.ru
+                phone: "(919)903-16-87"
+                email_confirmed: false
+                agreement: true
+                full_name: Вера Шубина Егорова
+              schema:
+                type: object
+                nullable: false
+                properties:
+                  id:
+                    type: integer
+                  email:
+                    type: string
+                  full_name:
+                    type: string
+                  phone:
+                    type: string
+                    description: Формат номера 79xxxxxxxxx
+                  agreement:
+                    type: boolean
+                  email_confirmed:
+                    type: boolean
+                required:
+                - id
+                - email
+                - full_name
+                - phone
+                - agreement
+                - email_confirmed
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              nullable: false
+              properties:
+                email:
+                  type: string
+              required:
+              - email
+              example:
+                email: test@tres.ru
+  "/api/v1/users/profile/":
+    delete:
+      summary: Удаление профиля пользователя
+      tags:
+      - Профиль пользователя
+      responses:
+        '204':
+          description: successful
+          content:
+            application/json:
+              example: ''
+servers:
+- url: https://smartcutter.ru
+components:
+  schemas:
+    Session:
+      type: object
+      nullable: false
+      properties:
+        access_token:
+          type: string
+        refresh_token:
+          type: string
+        access_token_expires_at:
+          type: datetime
+        refresh_token_expires_at:
+          type: datetime
+      required:
+      - access_token
+      - refresh_token
+      - access_token_expires_at
+      - refresh_token_expires_at
+    User:
+      type: object
+      nullable: false
+      properties:
+        id:
+          type: integer
+        email:
+          type: string
+        full_name:
+          type: string
+        phone:
+          type: string
+          description: Формат номера 79xxxxxxxxx
+        agreement:
+          type: boolean
+        email_confirmed:
+          type: boolean
+      required:
+      - id
+      - email
+      - full_name
+      - phone
+      - agreement
+      - email_confirmed

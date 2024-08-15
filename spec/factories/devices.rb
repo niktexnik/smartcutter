@@ -15,7 +15,8 @@
 #
 # Indexes
 #
-#  index_devices_on_user_id  (user_id)
+#  index_devices_on_identifier  (identifier) UNIQUE
+#  index_devices_on_user_id     (user_id)
 #
 # Foreign Keys
 #
@@ -23,9 +24,16 @@
 #
 FactoryBot.define do
   factory :device do
-    association :user
+    user { build(:user) }
     identifier { Faker::Alphanumeric.alphanumeric(number: 10) }
     platform { Device::PLATFORMS.sample }
     active { true }
+    app_version { '1.0.0' }
+  end
+
+  trait :with_session do
+    after(:create) do |device|
+      create(:session, device:)
+    end
   end
 end

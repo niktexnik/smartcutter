@@ -10,6 +10,12 @@ module SwaggerHelperExtensions
     parameter name: :request_body, in: :body, schema: object_schema(fields)
   end
 
+  def request_form_schema(fields)
+    fields.each do |key, value|
+      parameter name: key, in: :formData, type: value, schema: object_schema(fields)
+    end
+  end
+
   def query_params_schema(fields)
     schema = object_schema(fields)
 
@@ -55,11 +61,14 @@ RSpec.configure do |config|
   end
 
   config.after do |example|
-    example.metadata[:response][:content] = {
-      'application/json' => {
-        example: response.status == 204 ? '' : JSON.parse(response.body)
-      }
+    type = response.headers['Content-Type']&.split(';')&.first || 'application/json'
+    types = {
+      'application/json' => -> { response.status == 204 ? '' : JSON.parse(response.body) },
+      'application/xml' => -> { response.body },
+      'application/pdf' => -> { '<PDF Content/>' },
+      'text/html' => -> { response.body }
     }
+    example.metadata[:response][:content] = { type => { example: types[type].call } }
 
     parameters = example.metadata[:operation][:parameters]
     request_body_param = parameters&.find { |param| param[:name] == :request_body }

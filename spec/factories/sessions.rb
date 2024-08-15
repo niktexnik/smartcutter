@@ -14,7 +14,9 @@
 #
 # Indexes
 #
-#  index_sessions_on_device_id  (device_id)
+#  index_sessions_on_access_token   (access_token) UNIQUE
+#  index_sessions_on_device_id      (device_id)
+#  index_sessions_on_refresh_token  (refresh_token) UNIQUE
 #
 # Foreign Keys
 #
@@ -22,11 +24,11 @@
 #
 FactoryBot.define do
   factory :session do
+    device
     access_token { SecureRandom.urlsafe_base64(256, false) }
     access_token_expires_at { Time.zone.now + 1.hour }
     ip { Faker::Internet.ip_v4_address }
     refresh_token { SecureRandom.urlsafe_base64(256, false) }
     refresh_token_expires_at { Time.zone.now + 1.week }
-    association :device
   end
 end
