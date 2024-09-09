@@ -1,12 +1,12 @@
 ru:
   notifier_mailer:
     confirm_email:
-      subject: "Регистрация на Dentalis"
+      subject: "Регистрация на Smartcutter"
       title: "Подтвердите Ваш email"
       body: "Для подтверждения email, нажмите кнопку"
       button_text: "Подтвердить email"
     reset_password:
-      subject: "Сброс пароля на Dentalis"
+      subject: "Сброс пароля на Smartcutter"
       title: "Сброс пароля"
       body: "Нажмите кнопку ниже, для сброса пароля"
       button_text: "Сбросить пароль"

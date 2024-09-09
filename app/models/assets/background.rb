@@ -22,16 +22,8 @@
 #  fk_rails_...  (company_id => companies.id)
 #  fk_rails_...  (product_id => products.id)
 #
-class Asset < ApplicationRecord
-  AVALIABLE_TYPES = %w[background road watermark].freeze
-  mount_uploader :image
-  belongs_to :product
-  # belongs_to :user, through: :product
-  belongs_to :company, optional: true
-
-  validates :asset_type, inclusion: { in: AVALIABLE_TYPES }
-
-  def asset_type
-    self.asset_type = self.class.name.split('::').last.downcase
+module Assets
+  class Background < ::Asset
+    default_scope { where(asset_type: 'background') }
   end
 end

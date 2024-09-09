@@ -2,6 +2,7 @@ module Api
   module V1
     module Users
       class MediasetsController < Api::V1::ApiController
+        before_action :authenticate_user
         def index
           render json: { data: current_user.mediasets }
         end
@@ -11,13 +12,13 @@ module Api
         end
 
         def create
-          process_interaction_result(::Mediasets::Create.new.call(params)) do |result|
+          process_interaction_result(::V1::Users::Mediasets::Create.new.call(params)) do |result|
             render json: { data: result }
           end
         end
 
         def regenerate
-          process_interaction_result(::Mediasets::Regenerate.new.call(params)) do |result|
+          process_interaction_result(::V1::Users::Mediasets::Regenerate.new.call(params)) do |result|
             render json: { data: result }
           end
         end

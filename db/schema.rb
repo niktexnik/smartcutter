@@ -62,6 +62,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_14_103452) do
     t.string "state"
     t.boolean "ready"
     t.integer "pattern_id"
+    t.integer "asset_id"
     t.bigint "mediaset_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

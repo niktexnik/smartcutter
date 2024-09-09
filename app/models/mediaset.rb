@@ -21,6 +21,7 @@
 class Mediaset < ApplicationRecord
   belongs_to :product, dependent: :destroy
   has_many :entities, dependent: :destroy
+  has_many :assets, through: :product
   has_one :user, through: :product
   has_one :company, through: :product
 end

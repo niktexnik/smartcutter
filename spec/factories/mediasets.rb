@@ -20,9 +20,10 @@
 #
 FactoryBot.define do
   factory :mediaset do
-    first_name { Faker::Lorem.word }
+    name { Faker::Lorem.word }
     ready { false }
     state { :empty }
+    product { build(:product) }
 
     trait :with_entities_with_original_photo do
       after(:create) do |mediaset|

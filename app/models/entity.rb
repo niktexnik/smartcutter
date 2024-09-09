@@ -9,6 +9,7 @@
 #  state       :string
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#  asset_id    :integer
 #  mediaset_id :bigint           not null
 #  pattern_id  :integer
 #
@@ -26,6 +27,9 @@ class Entity < ApplicationRecord
   has_one :original_photo, class_name: '::OriginalPhoto', dependent: :destroy
   has_one :processed_photo, class_name: '::ProcessedPhoto', dependent: :destroy
   has_one :manual_processed_photo, class_name: '::ManualProcessedPhoto', dependent: :destroy
+  has_one :background_asset, dependent: :nullify
+  has_one :road_asset, dependent: :nullify
+  has_one :watermark_asset, dependent: :nullify
 
   # validates :position, uniqueness: { scope: :mediaset_id }
 end

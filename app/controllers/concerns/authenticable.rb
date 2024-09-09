@@ -20,6 +20,10 @@ module Authenticable
       @current_device ||= current_session&.device
     end
 
+    def current_company
+      @current_company ||= current_user&.company
+    end
+
     def render_current_session
       render json: current_session ? ::V1::SessionSerializer.render(current_session) : nil
     end
