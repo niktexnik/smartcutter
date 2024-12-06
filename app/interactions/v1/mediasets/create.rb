@@ -7,7 +7,7 @@ module V1
         params do
           required(:name).filled(:string)
           required(:product_id).filled(:integer)
-          optional(:user_id).filled(:integer)
+          required(:user_id).filled(:integer)
           optional(:company_id).filled(:integer)
         end
 

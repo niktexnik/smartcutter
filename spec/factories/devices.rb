@@ -15,8 +15,8 @@
 #
 # Indexes
 #
-#  index_devices_on_identifier  (identifier) UNIQUE
-#  index_devices_on_user_id     (user_id)
+#  index_devices_on_user_id               (user_id)
+#  index_devices_on_user_id_and_platform  (user_id,platform,identifier) UNIQUE
 #
 # Foreign Keys
 #

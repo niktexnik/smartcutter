@@ -25,6 +25,8 @@ module Users
     after_create :send_confirmation_email
 
     def send_confirmation_email
+      return if Rails.env.staging? || Rails.env.development?
+
       NotifierMailer.confirm_email(user).deliver_now
     end
   end

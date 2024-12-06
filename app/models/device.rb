@@ -15,8 +15,8 @@
 #
 # Indexes
 #
-#  index_devices_on_identifier  (identifier) UNIQUE
-#  index_devices_on_user_id     (user_id)
+#  index_devices_on_user_id               (user_id)
+#  index_devices_on_user_id_and_platform  (user_id,platform,identifier) UNIQUE
 #
 # Foreign Keys
 #
@@ -26,12 +26,13 @@ class Device < ApplicationRecord
   PLATFORMS = %w[ios android app_gallery].freeze
   PLATFORMS_DICTIONARY = { ios: 'iOS',
                            android: 'Android',
-                           app_gallery: 'app_gallery' }.stringify_keys.freeze
+                           app_gallery: 'App gallery' }.stringify_keys.freeze
 
   belongs_to :user, inverse_of: :devices, optional: true
   has_many :sessions, dependent: :destroy
 
   validates :platform, inclusion: { in: PLATFORMS }
+  validates :identifier, uniqueness: { scope: %i[user_id platform] }, if: proc { |device| device.user_id.present? }
 
   scope :active, -> { where(active: true) }
   scope :sorted, -> { order(updated_at: :desc) }

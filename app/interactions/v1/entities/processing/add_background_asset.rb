@@ -4,10 +4,10 @@ module V1
       class AddBackgroundAsset
         include Dry::Monads[:result, :do]
         include DryInteractions::InteractionErrors
-        def call(entity)
+        def call(entity, settings)
           @entity = entity
-          @asset = entity.mediaset.product.background_asset
           add_asset
+          debugger
           FileUtils.rm_rf(images_tmp_folder)
           Success()
         end
@@ -18,12 +18,12 @@ module V1
           @processed_photo ||= MiniMagick::Image.open(@entity.processed_photo.photo.path)
         end
 
-        def background_image
-          @background_image ||= MiniMagick::Image.open(@asset.image.path)
+        def cutted_photo
+          @cutted_photo ||= MiniMagick::Image.open(@entity.cutted_photo.photo.path)
         end
 
         def calculate_ofset
-          bg_width, bg_height = background_image.dimensions
+          bg_width, bg_height = cutted_photo.dimensions
           processed_width, processed_height = processed_photo.dimensions
           x_offset = (bg_width - processed_width) / 2
           y_offset = (bg_height - processed_height) / 2
@@ -31,10 +31,10 @@ module V1
         end
 
         def add_asset
-          output_file_path = images_tmp_folder.join("#{@entity.name}-#{@entity.id}.png").to_s
-          processed_photo.resize("#{background_image.dimensions[0]}x") if processed_photo.dimensions[0] != background_image.dimensions[0]
+          output_file_path = images_tmp_folder.join("#{@entity.name}-#{@entity.id}.#{@setting.output_extension}").to_s
+          processed_photo.resize("#{cutted_photo.dimensions[0]}x") if processed_photo.dimensions[0] != cutted_photo.dimensions[0]
 
-          result = background_image.composite(processed_photo) do |c|
+          result = cutted_photo.composite(processed_photo) do |c|
             c.compose 'Over'
             c.geometry "+#{calculate_ofset[0]}+#{calculate_ofset[1]}"
           end

@@ -25,11 +25,14 @@ class Entity < ApplicationRecord
   belongs_to :mediaset, dependent: :destroy
   has_many :photos, dependent: :destroy
   has_one :original_photo, class_name: '::OriginalPhoto', dependent: :destroy
+  has_one :cutted_photo, class_name: '::CuttedPhoto', dependent: :destroy
   has_one :processed_photo, class_name: '::ProcessedPhoto', dependent: :destroy
   has_one :manual_processed_photo, class_name: '::ManualProcessedPhoto', dependent: :destroy
-  has_one :background_asset, dependent: :nullify
-  has_one :road_asset, dependent: :nullify
-  has_one :watermark_asset, dependent: :nullify
+  has_one :background_asset, class_name: 'Background', dependent: :nullify
+  has_one :road_asset, class_name: 'Road', dependent: :nullify
+  has_one :watermark_asset, class_name: 'Watermark', dependent: :nullify
+
+  scope :order_by_position, -> { order(position: :asc) }
 
   # validates :position, uniqueness: { scope: :mediaset_id }
 end

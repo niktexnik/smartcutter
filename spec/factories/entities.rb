@@ -9,6 +9,7 @@
 #  state       :string
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#  asset_id    :integer
 #  mediaset_id :bigint           not null
 #  pattern_id  :integer
 #
@@ -34,9 +35,9 @@ FactoryBot.define do
       end
     end
 
-    trait :with_processed_photo do
+    trait :with_cutted_photo do
       after(:create) do |entity|
-        create(:processed_photo, entity:)
+        create(:cutted_photo, entity:)
       end
     end
   end

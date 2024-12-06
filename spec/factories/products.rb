@@ -46,11 +46,17 @@ FactoryBot.define do
     end
   end
 
+  trait :with_cutted_mediaset do
+    after(:create) do |product|
+      create(:mediaset, :with_entities_with_cutted_photo, product:)
+    end
+  end
+
   trait :with_all_assets do
     after(:create) do |product|
       create(:asset, :with_background, product:)
       create(:asset, :with_road, product:)
-      create(:asset, :with_watermark, product:)
+      # create(:asset, :with_watermark, product:)
     end
   end
 

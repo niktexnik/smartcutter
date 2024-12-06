@@ -25,8 +25,11 @@ class Product < ApplicationRecord
   belongs_to :user, optional: true
   has_many :mediasets, dependent: :destroy
   has_many :assets, dependent: :destroy
-  has_one :background_asset, class_name: 'Assets::Background', dependent: :destroy
-  has_one :road_asset, class_name: 'Assets::Road', dependent: :destroy
-  has_one :watermark_asset, class_name: 'Assets::Watermark', dependent: :destroy
   has_many :patterns, dependent: :destroy
+  # has_one :background_asset, class_name: 'Assets::Background', dependent: :destroy
+  # has_one :road_asset, class_name: 'Assets::Road', dependent: :destroy
+  # has_one :watermark_asset, class_name: 'Assets::Watermark', dependent: :destroy
+  has_one :products_setting, class_name: 'Products::Setting', dependent: :destroy
+
+  accepts_nested_attributes_for :products_setting, allow_destroy: true
 end

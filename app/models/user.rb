@@ -45,7 +45,7 @@ class User < ApplicationRecord
 
   def generate_email_confirmation_token
     email_confirmations.create(confirmation_token: SecureRandom.hex(32),
-                               confirmation_token_expires_at: 1.month.from_now)
+                               confirmation_token_expires_at: 5.minutes.from_now)
   end
 
   def generate_reset_password_token

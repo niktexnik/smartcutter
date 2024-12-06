@@ -24,12 +24,15 @@
 #
 class Asset < ApplicationRecord
   AVALIABLE_TYPES = %w[background road watermark].freeze
+  WATERMARK_POSITIONS_BASE = { center: 'Center', top: 'North', bottom: 'South', left: 'East', right: 'West',
+                               northwest: 'NorthWest', northeast: 'NorthEast', southeast: 'SouthEast',
+                               southwest: 'SouthWest' }.freeze
   mount_uploader :image
   belongs_to :product
   # belongs_to :user, through: :product
   belongs_to :company, optional: true
 
-  validates :asset_type, inclusion: { in: AVALIABLE_TYPES }
+  # validates :asset_type, inclusion: { in: AVALIABLE_TYPES }
 
   def asset_type
     self.asset_type = self.class.name.split('::').last.downcase

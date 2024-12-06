@@ -25,12 +25,12 @@
 FactoryBot.define do
   factory :asset do
     name { Faker::Lorem.word }
-    image do
-      Rack::Test::UploadedFile.new(Rails.root.join('spec/fixtures/files/background_asset.jpg'), 'image/jpeg')
-    end
+    # image do
+    #   Rack::Test::UploadedFile.new(Rails.root.join('spec/fixtures/files/background_asset.jpg'), 'image/jpeg')
+    # end
     position { Faker::Lorem.word }
-    asset_type { 'background' }
-    # association :company
+    # asset_type { 'background' }
+    company
   end
 
   trait :with_product do
@@ -41,21 +41,21 @@ FactoryBot.define do
     company
   end
 
-  # trait :with_background do
-  #   after(:create) do |entity|
-  #     create(:background, entity:)
-  #   end
-  # end
-  # asset_type { 'background' }
-  # image do
-  #   Rack::Test::UploadedFile.new(Rails.root.join('spec/fixtures/files/background_asset.jpg'), 'image/jpeg')
-  # end
+  trait :with_background do
+    # after(:create) do |entity|
+    #   create(:background, entity:)
+    # end
+    asset_type { 'background' }
+    image do
+      Rack::Test::UploadedFile.new(Rails.root.join('spec/fixtures/files/background_asset.jpg'), 'image/jpeg')
+    end
+  end
 
   trait :with_road do
-    # asset_type { 'road' }
-    # image do
-    #   Rack::Test::UploadedFile.new(Rails.root.join('spec/fixtures/files/road_asset.jpeg'), 'image/jpeg')
-    # end
+    asset_type { 'road' }
+    image do
+      Rack::Test::UploadedFile.new(Rails.root.join('spec/fixtures/files/road_asset.jpeg'), 'image/jpeg')
+    end
   end
 
   trait :with_watermark do

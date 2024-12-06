@@ -19,7 +19,7 @@ module V1
             photo = MiniMagick::Image.open(entity.original_photo.photo.path).path
             `python3 -m backgroundremover.cmd.cli -i "#{photo}" -o "#{images_tmp_folder}/cut_car_#{entity.id}.png"`
             new_photo = MiniMagick::Image.open("#{images_tmp_folder}/cut_car_#{entity.id}.png")
-            entity.create_processed_photo(photo: new_photo, entity:)
+            entity.create_cutted_photo(photo: new_photo, entity:)
           end
         end
 

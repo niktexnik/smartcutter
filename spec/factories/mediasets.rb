@@ -38,5 +38,12 @@ FactoryBot.define do
       end
       state { :not_empty }
     end
+
+    trait :with_entities_with_cutted_photo do
+      after(:create) do |mediaset|
+        5.times { create(:entity, :with_cutted_photo, mediaset:) }
+      end
+      state { :not_empty }
+    end
   end
 end

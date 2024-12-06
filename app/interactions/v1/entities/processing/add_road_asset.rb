@@ -4,8 +4,9 @@ module V1
       class AddRoadAsset
         include Dry::Monads[:result, :do]
         include DryInteractions::InteractionErrors
-        def call(entity)
+        def call(entity, settings)
           @entity = entity
+          @settings = settings
           @asset = entity.mediaset.product.road_asset
           add_asset
           FileUtils.rm_rf(images_tmp_folder)
@@ -14,8 +15,8 @@ module V1
 
         private
 
-        def processed_photo
-          @processed_photo ||= MiniMagick::Image.open(@entity.processed_photo.photo.path)
+        def background_photo
+          @background_photo ||= MiniMagick::Image.open(@entity.background_asset.image.path)
         end
 
         def road_asset
@@ -24,7 +25,7 @@ module V1
 
         def calculate_ofset
           bg_width, bg_height = road_asset.dimensions
-          processed_width, processed_height = processed_photo.dimensions
+          processed_width, processed_height = background_photo.dimensions
           x_offset = (bg_width - processed_width) / 2
           y_offset = (bg_height - processed_height) / 2
           [x_offset, y_offset]
@@ -32,8 +33,8 @@ module V1
 
         def add_asset
           output_file_path = images_tmp_folder.join("#{@entity.name}-#{@entity.id}.png").to_s
-          road_asset.resize("#{processed_photo.width}x") if road_asset.width != processed_photo.width
-          result = road_asset.composite(processed_photo) do |c|
+          road_asset.resize("#{background_photo.width}x") if road_asset.width != background_photo.width
+          result = road_asset.composite(background_photo) do |c|
             c.compose 'Over'
             c.geometry "+#{calculate_ofset[0]}+-215"
           end

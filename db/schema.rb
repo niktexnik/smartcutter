@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_14_103452) do
+ActiveRecord::Schema[7.1].define(version: 2024_12_06_122335) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -52,7 +52,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_14_103452) do
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["identifier"], name: "index_devices_on_identifier", unique: true
+    t.index ["user_id", "platform", "identifier"], name: "index_devices_on_user_id_and_platform", unique: true
     t.index ["user_id"], name: "index_devices_on_user_id"
   end
 
@@ -86,6 +86,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_14_103452) do
     t.bigint "product_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "position"
     t.index ["product_id"], name: "index_patterns_on_product_id"
   end
 
@@ -109,6 +110,23 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_14_103452) do
     t.datetime "updated_at", null: false
     t.index ["company_id"], name: "index_products_on_company_id"
     t.index ["user_id"], name: "index_products_on_user_id"
+  end
+
+  create_table "products_settings", force: :cascade do |t|
+    t.integer "image_width", default: 1920
+    t.integer "image_height", default: 1080
+    t.integer "images_count", default: 3
+    t.string "output_extension", default: "png"
+    t.string "pattern_ids", default: [], array: true
+    t.boolean "blure_windows", default: false
+    t.boolean "blure_plates", default: false
+    t.boolean "add_shadows", default: false
+    t.boolean "need_processing", default: true
+    t.boolean "enabled", default: true
+    t.bigint "product_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_id"], name: "index_products_settings_on_product_id"
   end
 
   create_table "sessions", force: :cascade do |t|
@@ -171,6 +189,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_14_103452) do
   add_foreign_key "photos", "entities"
   add_foreign_key "products", "companies"
   add_foreign_key "products", "users"
+  add_foreign_key "products_settings", "products"
   add_foreign_key "sessions", "devices"
   add_foreign_key "users_email_confirmations", "users"
   add_foreign_key "users_reset_password_confirmations", "users"
