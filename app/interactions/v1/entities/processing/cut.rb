@@ -17,14 +17,18 @@ module V1
           entities.each do |entity|
             @entity = entity
             photo = MiniMagick::Image.open(entity.original_photo.photo.path).path
-            `python3 -m backgroundremover.cmd.cli -i "#{photo}" -o "#{images_tmp_folder}/cut_car_#{entity.id}.png"`
-            new_photo = MiniMagick::Image.open("#{images_tmp_folder}/cut_car_#{entity.id}.png")
+            result = ImageProcessor.process_image(photo, images_tmp_folder, format: settings.output_extension)
+            new_photo = MiniMagick::Image.open(result)
             entity.create_cutted_photo(photo: new_photo, entity:)
           end
         end
 
         def entities
           @entities ||= @mediaset.entities
+        end
+
+        def settings
+          @settings ||= @mediaset.product.products_setting
         end
 
         def images_tmp_folder

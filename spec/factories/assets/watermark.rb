@@ -23,7 +23,7 @@
 #  fk_rails_...  (product_id => products.id)
 #
 FactoryBot.define do
-  factory :watermark, class: Assets::Watermark do
+  factory :watermark, class: 'Assets::Watermark' do
     name { Faker::Lorem.word }
     image do
       Rack::Test::UploadedFile.new(Rails.root.join('spec/fixtures/files/watermark.jpg'), 'image/jpeg')

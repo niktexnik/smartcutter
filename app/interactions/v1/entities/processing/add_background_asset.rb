@@ -6,6 +6,7 @@ module V1
         include DryInteractions::InteractionErrors
         def call(entity, settings)
           @entity = entity
+          @settings = settings
           add_asset
           debugger
           FileUtils.rm_rf(images_tmp_folder)

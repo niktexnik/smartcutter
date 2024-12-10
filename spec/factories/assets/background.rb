@@ -23,7 +23,7 @@
 #  fk_rails_...  (product_id => products.id)
 #
 FactoryBot.define do
-  factory :background, class: Assets::Background do
+  factory :background, class: 'Assets::Background' do
     name { Faker::Lorem.word }
     image do
       Rack::Test::UploadedFile.new(Rails.root.join('spec/fixtures/files/background_asset.jpg'), 'image/jpeg')

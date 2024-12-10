@@ -23,7 +23,7 @@
 #  fk_rails_...  (product_id => products.id)
 #
 FactoryBot.define do
-  factory :road, class: Assets::Road do
+  factory :road, class: 'Assets::Road' do
     name { Faker::Lorem.word }
     image do
       Rack::Test::UploadedFile.new(Rails.root.join('spec/fixtures/files/road_asset.jpg'), 'image/jpeg')
