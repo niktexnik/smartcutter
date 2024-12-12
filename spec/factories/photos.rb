@@ -6,6 +6,7 @@
 #  file_size  :integer
 #  height     :integer
 #  photo      :string
+#  step       :string
 #  width      :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null

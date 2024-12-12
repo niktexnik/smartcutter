@@ -46,12 +46,6 @@ FactoryBot.define do
     end
   end
 
-  trait :with_cutted_mediaset do
-    after(:create) do |product|
-      create(:mediaset, :with_entities_with_cutted_photo, product:)
-    end
-  end
-
   trait :with_all_assets do
     after(:create) do |product|
       create(:asset, :with_background, product:)
@@ -70,6 +64,12 @@ FactoryBot.define do
       create(:pattern, :front_angle_right_view, product:)
       create(:pattern, :back_angle_left_view, product:)
       create(:pattern, :back_angle_right_view, product:)
+    end
+  end
+
+  trait :with_products_setting do
+    after(:create) do |product|
+      create(:products_setting, product:)
     end
   end
 end

@@ -6,7 +6,7 @@ class CreateProductsSettings < ActiveRecord::Migration[7.1]
       t.integer :images_count, default: 3
       t.string :output_extension, default: 'png'
       t.string :pattern_ids, array: true, default: []
-      t.boolean :blure_windows, default: false
+      t.boolean :tint_windows, default: false
       t.boolean :blure_plates, default: false
       t.boolean :add_shadows, default: false
       t.boolean :need_processing, default: true

@@ -5,7 +5,6 @@ from PIL import Image, ImageFilter
 import cv2
 import numpy as np
 from rembg import remove
-
 class ProcessImage:
     def __init__(self, image_path, output_dir, operation, file_format):
         self.image = Image.open(image_path)
@@ -14,32 +13,23 @@ class ProcessImage:
         self.file_format = file_format
 
     def process(self):
-        if self.operation == 'remove_background':
-          self.remove_background()
-        elif self.operation == 'add_shadow':
-          self.remove_background()
-          self.add_shadow()
-        elif self.operation == 'blur_plates':
-          self.remove_background()
-          self.blur_plates()
-        elif self.operation == 'darken_windows':
-          self.remove_background()
-          self.darken_windows()
-        elif self.operation == 'all':
-          self.remove_background()
-          self.add_shadow()
-          self.blur_plates()
-          self.darken_windows()
+        if self.operation == 'cut':
+          self.cut()
+        elif self.operation == 'add_shadows':
+          self.add_shadows()
+        elif self.operation == 'blure_plates':
+          self.blure_plates()
+        elif self.operation == 'tint_windows':
+          self.tint_windows()
         if not os.path.exists(self.output_dir):
             os.makedirs(self.output_dir)
         if self.file_format.upper() == 'JPEG' and self.image.mode == 'RGBA':
-            self.image = self.image.convert('RGB')
-
-        output_path = f'{self.output_dir}/output_{self.operation}.{self.file_format.lower()}'
+          self.image = self.image.convert('RGB')
+        output_path = f'{self.output_dir}/{self.operation}.{self.file_format.lower()}'
         self.image.save(output_path, format=self.file_format)
         print(output_path)
 
-    def remove_background(self):
+    def cut(self):
         input_image = self.image.convert('RGBA')
         img_byte_arr = io.BytesIO()
         input_image.save(img_byte_arr, format='PNG')
@@ -49,7 +39,7 @@ class ProcessImage:
         output_image = Image.open(io.BytesIO(output_data))
         self.image = output_image
 
-    def add_shadow(self):
+    def add_shadows(self):
         # Преобразуем изображение в формат OpenCV для дальнейшей обработки
         img_cv = np.array(self.image.convert('RGBA'))
         # Преобразуем в серый цвет, чтобы найти контуры
@@ -85,7 +75,7 @@ class ProcessImage:
 
         # Преобразуем в RGB, чтобы избавиться от прозрачности
         self.image = image_with_shadow.convert('RGBA')
-    def blur_plates(self):
+    def blure_plates(self):
         img_cv = np.array(self.image)
         gray = cv2.cvtColor(img_cv, cv2.COLOR_BGR2GRAY)
         classifier = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_russian_plate_number.xml')
@@ -96,7 +86,7 @@ class ProcessImage:
             img_cv[y:y+h, x:x+w] = roi_blurred
         self.image = Image.fromarray(img_cv)
 
-    def darken_windows(self):
+    def tint_windows(self):
                # Преобразуем изображение в формат OpenCV (BGR)
         img_cv = np.array(self.image)
         img_cv = cv2.cvtColor(img_cv, cv2.COLOR_RGB2BGR)
@@ -152,7 +142,7 @@ class ProcessImage:
 if __name__ == '__main__':
     image_path = sys.argv[1]
     output_dir = sys.argv[2]
-    operation = sys.argv[3] if len(sys.argv) > 2 else 'remove_background'
-    file_format = sys.argv[4] if len(sys.argv) > 3 else 'PNG'
+    operation = sys.argv[3]
+    file_format = sys.argv[4]
     processor = ProcessImage(image_path, output_dir, operation, file_format)
     processor.process()

@@ -5,7 +5,6 @@
 #  id               :bigint           not null, primary key
 #  add_shadows      :boolean          default(FALSE)
 #  blure_plates     :boolean          default(FALSE)
-#  blure_windows    :boolean          default(FALSE)
 #  enabled          :boolean          default(TRUE)
 #  image_height     :integer          default(1080)
 #  image_width      :integer          default(1920)
@@ -13,6 +12,7 @@
 #  need_processing  :boolean          default(TRUE)
 #  output_extension :string           default("png")
 #  pattern_ids      :string           default([]), is an Array
+#  tint_windows     :boolean          default(FALSE)
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #  product_id       :bigint           not null
@@ -27,11 +27,10 @@
 #
 FactoryBot.define do
   factory :products_setting, class: 'Products::Setting' do
-    blure_windows { false }
-    blure_plates { false }
+    tint_windows { false }
+    blure_plates { true }
     add_shadows { false }
     need_processing { true }
     enabled { true }
-    product
   end
 end

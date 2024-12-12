@@ -19,12 +19,12 @@ module V1
           @processed_photo ||= MiniMagick::Image.open(@entity.processed_photo.photo.path)
         end
 
-        def cutted_photo
-          @cutted_photo ||= MiniMagick::Image.open(@entity.cutted_photo.photo.path)
+        def processed_photo
+          @processed_photo ||= MiniMagick::Image.open(@entity.processed_photo.photo.path)
         end
 
         def calculate_ofset
-          bg_width, bg_height = cutted_photo.dimensions
+          bg_width, bg_height = processed_photo.dimensions
           processed_width, processed_height = processed_photo.dimensions
           x_offset = (bg_width - processed_width) / 2
           y_offset = (bg_height - processed_height) / 2
@@ -33,9 +33,9 @@ module V1
 
         def add_asset
           output_file_path = images_tmp_folder.join("#{@entity.name}-#{@entity.id}.#{@setting.output_extension}").to_s
-          processed_photo.resize("#{cutted_photo.dimensions[0]}x") if processed_photo.dimensions[0] != cutted_photo.dimensions[0]
+          processed_photo.resize("#{processed_photo.dimensions[0]}x") if processed_photo.dimensions[0] != processed_photo.dimensions[0]
 
-          result = cutted_photo.composite(processed_photo) do |c|
+          result = processed_photo.composite(processed_photo) do |c|
             c.compose 'Over'
             c.geometry "+#{calculate_ofset[0]}+#{calculate_ofset[1]}"
           end

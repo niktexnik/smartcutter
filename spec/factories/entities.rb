@@ -35,9 +35,16 @@ FactoryBot.define do
       end
     end
 
-    trait :with_cutted_photo do
+    trait :with_processed_photo do
       after(:create) do |entity|
-        create(:cutted_photo, entity:)
+        create(:processed_photo, entity:)
+      end
+    end
+
+    trait :with_all_photos do
+      after(:create) do |entity|
+        create(:original_photo, entity:)
+        create(:processed_photo, entity:)
       end
     end
   end

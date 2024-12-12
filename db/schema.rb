@@ -98,6 +98,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_06_122335) do
     t.integer "file_size"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "step"
     t.index ["entity_id"], name: "index_photos_on_entity_id"
   end
 
@@ -118,7 +119,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_06_122335) do
     t.integer "images_count", default: 3
     t.string "output_extension", default: "png"
     t.string "pattern_ids", default: [], array: true
-    t.boolean "blure_windows", default: false
+    t.boolean "tint_windows", default: false
     t.boolean "blure_plates", default: false
     t.boolean "add_shadows", default: false
     t.boolean "need_processing", default: true
