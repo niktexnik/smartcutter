@@ -23,7 +23,7 @@
 FactoryBot.define do
   factory :original_photo do
     photo do
-      Rack::Test::UploadedFile.new(Rails.root.join('spec/fixtures/files/car.jpg'), 'image/jpeg')
+      Rack::Test::UploadedFile.new(Rails.root.join('spec/fixtures/files/image_car.jpg'), 'image/jpeg')
     end
     file_size { Faker::Number.between(from: 100, to: 1000) }
     height { Faker::Number.between(from: 100, to: 1000) }

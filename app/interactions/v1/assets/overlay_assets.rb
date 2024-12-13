@@ -73,7 +73,7 @@ module V1
       end
 
       def offset_to_geometry(offset)
-        "-#{offset[0]}+700"
+        "-#{offset[0]}+900"
       end
 
       def resize_to_product_settings(image)
