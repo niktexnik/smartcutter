@@ -47,7 +47,7 @@ FactoryBot.define do
     # end
     asset_type { 'background' }
     image do
-      Rack::Test::UploadedFile.new(Rails.root.join('spec/fixtures/files/background_asset.jpg'), 'image/jpeg')
+      Rack::Test::UploadedFile.new(Rails.root.join('spec/fixtures/files/background_asset2.jpg'), 'image/jpeg')
     end
   end
 
@@ -59,9 +59,9 @@ FactoryBot.define do
   end
 
   trait :with_watermark do
-    # asset_type { 'watermark' }
-    # image do
-    #   Rack::Test::UploadedFile.new(Rails.root.join('spec/fixtures/files/watermark_asset.svg'), 'image/svg')
-    # end
+    asset_type { 'watermark' }
+    image do
+      Rack::Test::UploadedFile.new(Rails.root.join('spec/fixtures/files/watermark_asset.svg'), 'image/svg')
+    end
   end
 end

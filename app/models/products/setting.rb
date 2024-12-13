@@ -30,6 +30,8 @@ module Products
     belongs_to :product
 
     validates :image_width, :image_height, numericality: { greater_than: 0 }
-    validates :product, presence: true
+    def resolution
+      "#{image_width}x#{image_height}"
+    end
   end
 end

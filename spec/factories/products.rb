@@ -50,7 +50,7 @@ FactoryBot.define do
     after(:create) do |product|
       create(:asset, :with_background, product:)
       create(:asset, :with_road, product:)
-      # create(:asset, :with_watermark, product:)
+      create(:asset, :with_watermark, product:)
     end
   end
 
